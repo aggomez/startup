@@ -1,0 +1,5 @@
+HTML:
+
+1-5)
+Should I upload a resource folder containing the image, video and sound files?
+If so, how should I type the source of each of them?
