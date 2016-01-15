@@ -1,6 +1,6 @@
 General:
 
-I accidentally did a pushed a commint to the master branch.
+I accidentally pushed a commint to the master branch.
 Can I remove it somehow with rebase?
 
 
