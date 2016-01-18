@@ -1,0 +1,64 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html{
+	font-family: "Times New Roman", serif;
+	font-size: 14px;
+}
+
+.header{
+	background-color: gray;
+	border: solid;
+	height: auto;
+	margin: 10px;
+	width: calc(100% - 20px);
+}
+
+.navigation{
+	background-color: gray;
+	border: solid;
+	float: left;
+	margin: 10px;
+	min-height: 200px;	
+	padding: 1em;
+	width: calc(25% - 20px);
+}
+
+.content{
+	background-color: gray;
+	border: solid;
+	float: left;
+	margin: 10px;
+	min-height: 200px;
+	padding: 1em;
+	width: calc(50% - 20px);
+}
+
+.sidebar{
+	background-color: gray;
+	border: solid;
+	float: right;
+	margin: 10px;
+	min-height: 200px;
+	padding: 1em;
+	width: calc(25% - 20px);
+}
+
+.footer{
+	background-color: gray;
+	border: solid;
+	clear: both;
+	height: auto;	
+	margin: 10px;
+	width: calc(100% - 20px);
+}
+
+
+.center{
+	text-align: center;
+}
+
+

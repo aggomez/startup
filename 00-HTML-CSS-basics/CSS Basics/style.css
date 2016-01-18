@@ -1,0 +1,63 @@
+html{
+	font-family: "Times New Roman", serif;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+header{
+	background-color: aqua;
+}
+
+nav{
+	background-color: yellow;
+}
+
+aside{
+	background-color: orange;
+}
+
+footer{
+	background-color: red;
+}
+
+section{
+	background-color: transparent;
+}
+
+.center{
+	text-align: center;
+}
+
+.header{
+	font-size: 46px;
+}
+
+.footer{
+	font-size: 10px;
+}
+
+.content{
+	font-size: 14px;
+}
+
+.navigation{
+	font-size: 12px;
+}
+
+.sidebar{
+	font-size: 10px;
+}
+
+.oh-no-inline-styles {
+	background-color: green !important;
+}
+
+[class*="a"]{
+	background-color: blue;
+}
+
+[class$="r"]{
+	background-color: magenta;
+}
+
+
