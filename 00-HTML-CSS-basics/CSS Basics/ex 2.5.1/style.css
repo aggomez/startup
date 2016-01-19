@@ -9,6 +9,26 @@ html{
 	font-size: 14px;
 }
 
+@media (min-width: 768px) {
+  html { font-size: 112%; }
+}
+
+@media (min-width: 1024px) {
+  html { font-size: 120%; }
+}
+
+img{
+	display: block;
+	height: auto;
+	width: auto;
+}
+
+@media (max-width: 640px){
+	img{
+		display: none;
+	}
+}
+
 .header{
 	background-color: gray;
 	border: solid;
