@@ -6,8 +6,9 @@ $(document).ready(function(){
 		$.ajax({
 			type: "GET",
 			url: "https://api.spotify.com/v1/search",
-			data: { q: 'Rolling Stones', type: 'track' },
+			data: { q: query, type: 'track' },
 			success: function(response){
+				$("ul").empty();
 				console.log(response);
 				if(response.tracks.items.length > 0){
 					$.each(response.tracks.items, function(index){
@@ -24,7 +25,7 @@ $(document).ready(function(){
 	
 	$("#button").click(function(){
 	$(".hidden").fadeOut("fast");
-	var query = $("#input").value;
+	var query = $("#input").val();
 	searchList(query);
 	});
 });
