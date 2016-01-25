@@ -2,7 +2,7 @@ $(document).ready(function(){
 	
 	$("input").focus();
 
-	var searchList = function(query){
+	var searchFunction = function(query){
 		$.ajax({
 			type: "GET",
 			url: "https://api.spotify.com/v1/search",
@@ -10,7 +10,7 @@ $(document).ready(function(){
 			success: function(response){
 				$("ul").empty();
 				console.log(response);
-				if(response.tracks.items.length > 0){
+				if(response.tracks.items.length){
 					$.each(response.tracks.items, function(index){
 						var trackname = response.tracks.items[index].name;
 						var artist = response.tracks.items[index].artists[0].name;
@@ -21,11 +21,11 @@ $(document).ready(function(){
 				};
 			}
 		});
-	}
+	};
 	
 	$("#button").click(function(){
 	$(".hidden").fadeOut("fast");
 	var query = $("#input").val();
-	searchList(query);
+	searchFunction(query);
 	});
 });
