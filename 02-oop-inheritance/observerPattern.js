@@ -39,9 +39,9 @@ Observable.prototype.notify = function (event, param) {
 		for (var j = 0; j < this.observersList[i].events.length; j++) {
 			if (this.observersList[i].events[j].action === event) {
 				this.observersList[i].events[j].callback(this,param);
-			};
-		};
-	};
+			}
+		}
+	}
 };
 
 //Artist class
@@ -94,8 +94,8 @@ Track.prototype.getArtistByName = function (name) {
 	for (var i = 0; i < this.artists.length; i++) {
 		if (this.artists[i].name === name){
 			return this.artists[i];
-		};
-	};
+		}
+	}
 	return console.log("Artist not found");
 };
 
@@ -104,8 +104,8 @@ Track.prototype.removeArtistByName = function (name) {
 		if (this.artists[i].name === name){
 			this.artists.splice(i,1);
 			return console.log(name + " removed from " + this.title)
-		};
-	};
+		}
+	}
 	return console.log("Artist not found")
 };
 
