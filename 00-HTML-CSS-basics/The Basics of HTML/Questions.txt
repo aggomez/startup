@@ -1,3 +1,9 @@
+General:
+
+I accidentally pushed a commint to the master branch.
+Can I remove it somehow with rebase?
+
+
 HTML:
 
 1-5)

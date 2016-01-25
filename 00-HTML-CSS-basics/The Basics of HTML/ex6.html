@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="description" content="Globant Bootcamp Topic 0"/>
+		<meta name="author" content="Agustín Gómez"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<title>HTML 1-vi</title>
+
+	</head>
+	<body>
+		<h2>Log in</h2>
+
+		<form>
+			<fieldset>
+			<legend>Personal info</legend>
+						<label for="name">Name:</label> 
+						<input type="text" name="name" id="name" value="" placeholder="Full name" required />
+						<label for="email">Email:</label>
+						<input type="email" name="email" id="email" value="" placeholder="your@email.com" required/>
+						<label for="birthday">Birthday:</label>
+						<input type="date" name="birthday" id="birthday" value="" required />
+						<label for="sport">Favourite sport:</label>
+						<select name="sport" id="sport" required>
+						<option value="">Select a sport</option>
+ 						<option value="tennis">Tennis</option>
+  					<option value="soccer">Soccer</option>
+  					<option value="handball">Handball</option>
+  					<option value="baseball">Baseball</option> 
+  					<option value="rugby">Rugby</option>
+						</select>
+			</fieldset>
+			<fieldset>
+			<legend>Biography</legend>
+				<p>Tell us a bit about yourself</p>
+		  	<textarea name="bio" id="bio" cols="40" rows="10"></textarea>
+
+			</fieldset>
+			<fieldset>
+			<legend>Submit</legend>
+				<label for= "mailing-list">Check this box if you want to suscribe to the mailing-list</label>
+				<input type="checkbox" name="mailing-list" id="mailing-list" value="no" />
+				<br>
+				<input type="submit" value="submit" />
+				<input type="reset" value="reset" />
+		
+			</fieldset>
+
+		</form>
+
+	</body>
+</html>
