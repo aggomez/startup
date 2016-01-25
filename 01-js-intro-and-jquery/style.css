@@ -1,0 +1,31 @@
+html{
+	font-family: "Times New Roman", serif;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.hidden{
+	display: none;
+}
+
+.container{
+	margin: auto;
+	width: 1200px;
+}
+
+.sidebar{
+	font-size: 18px;
+	float: left;
+	width: 40%
+}
+
+.list{
+	float: right;
+	text-align: center;
+	width: 60%;
+}
+
+.songs{
+	color: blue;
+	text-align: left;
+}
