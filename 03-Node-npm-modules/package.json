@@ -1,0 +1,19 @@
+{
+  "name": "topic3",
+  "version": "1.0.0",
+  "description": "Globant Boot Camp Topic 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aggomez/startup.git"
+  },
+  "author": "Agustin Gomez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aggomez/startup/issues"
+  },
+  "homepage": "https://github.com/aggomez/startup#readme"
+}
