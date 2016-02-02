@@ -1,0 +1,12 @@
+<div>
+	<h1>Your Tracks</h1>
+		<input ng-model="newtrack"/>
+		<button ng-click="addTrack()"></button>
+	<div>
+	<ul>
+		<li ng-repeat = "track in playlist track by $index">
+			{{track}}
+		</li>
+	</ul>
+	</div>
+</div>
