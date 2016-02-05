@@ -1,0 +1,26 @@
+<h2>Search</h2>
+<input ng-model="trackSearch"/>
+<button ng-click="searchTracks()">Go!</button>
+<div dir-paginate = "track in searchResponse| itemsPerPage: 5" pagination-id="search">
+	<button ng-model= "track" ng-click="addToLocalPlaylist(track)">Add</button>
+	{{track.name}}
+	<br>
+	{{track.album.name}}
+	<br>
+	{{track.duration_ms}}
+</div>
+
+<dir-pagination-controls pagination-id="search"></dir-pagination-controls>
+
+<h2>Local Playlist</h2>
+<br>
+<div dir-paginate = "track in localPlaylist| itemsPerPage: 5 track by $index" pagination-id="local">
+	{{track.name}}
+	<button ng-click="removeFromLocalPlaylist($index)">X</button>
+	<br>
+	{{track.album.name}}
+	<br>
+	{{track.duration_ms}}
+</div>
+
+<dir-pagination-controls pagination-id="local"></dir-pagination-controls>

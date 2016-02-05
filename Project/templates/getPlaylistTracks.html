@@ -1,0 +1,9 @@
+<div dir-paginate = "tracks in selectedPlaylist| itemsPerPage: 5" pagination-id="playlistTracks">
+	{{track.href}}
+	<br>
+	{{track.album.name}}
+	<br>
+	{{track.duration_ms}}
+</div>
+
+<dir-pagination-controls pagination-id="playlistTracks"></dir-pagination-controls>

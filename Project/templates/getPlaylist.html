@@ -1,0 +1,7 @@
+<button ng-click="getPlaylists()">Get them!</button>
+<div dir-paginate = "playlist in userPlaylists| itemsPerPage: 5" pagination-id="playlist">
+	<a ui-sref="home.getPlaylist.tracks" ng-click="getPlaylistTracks($index)">{{playlist.name}}</a>
+	<br>
+</div>
+<dir-pagination-controls pagination-id="playlist"></dir-pagination-controls>
+<div ui-view></div>
