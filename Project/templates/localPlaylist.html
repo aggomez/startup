@@ -1,26 +1,47 @@
-<h2>Search</h2>
-<input ng-model="trackSearch"/>
-<button ng-click="searchTracks()">Go!</button>
-<div dir-paginate = "track in searchResponse| itemsPerPage: 5" pagination-id="search">
-	<button ng-model= "track" ng-click="addToLocalPlaylist(track)">Add</button>
-	{{track.name}}
-	<br>
-	{{track.album.name}}
-	<br>
-	{{track.duration_ms}}
+<div class="col-lg-6">
+	<caption class = "text-center">
+		<input ng-model="trackSearch"/>
+		<button ng-click="searchTracks()">Search!</button>
+	</caption>
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>Track</th>
+				<th>Album</th>
+				<th>Duration</th>
+				<th>Add to local</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr dir-paginate = "track in searchResponse| itemsPerPage: 5" pagination-id="search">
+				<td>{{track.name}}</td>
+				<td>{{track.album.name}}</td>
+				<td>{{track.duration_ms}}</td>
+				<td><button class="btn btn-primary btn-xs" ng-model= "track" ng-click="addToLocalPlaylist(track)"><span class="glyphicon glyphicon-plus"></span></button></td>
+			</tr>
+		</tbody>
+	</table>
+	<dir-pagination-controls pagination-id="search"></dir-pagination-controls>
 </div>
-
-<dir-pagination-controls pagination-id="search"></dir-pagination-controls>
-
-<h2>Local Playlist</h2>
-<br>
-<div dir-paginate = "track in localPlaylist| itemsPerPage: 5 track by $index" pagination-id="local">
-	{{track.name}}
-	<button ng-click="removeFromLocalPlaylist($index)">X</button>
-	<br>
-	{{track.album.name}}
-	<br>
-	{{track.duration_ms}}
+<div class="col-lg-6">
+	<table class="table table-condensed">
+		<caption class="text-center">Local stored playlist</caption>
+		<thead>
+			<tr>
+				<th>Track</th>
+				<th>Album</th>
+				<th>Duration</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr dir-paginate = "track in localPlaylist| itemsPerPage: 5 track by $index" pagination-id="local">
+				<td>{{track.name}}</td>
+				<td>{{track.album.name}}</td>
+				<td>{{track.duration_ms}}</td>
+				<td><button class="btn btn-danger btn-xs" ng-click="removeFromLocalPlaylist($index)"><span class="glyphicon glyphicon-remove"></span></button></td>
+			</tr>
+		</tbody>
+	</table>
+	<dir-pagination-controls pagination-id="local"></dir-pagination-controls>
 </div>
-
-<dir-pagination-controls pagination-id="local"></dir-pagination-controls>

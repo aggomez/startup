@@ -1,12 +1,10 @@
-<h2>Main Page</h2>
-<button ng-click="login()">Login</button>
-<aside>
-	<a ui-sref="home.localPlaylist">Search for tracks and manage a local playlist</a>
-	<br>
-	<a ui-sref="home.sendPlaylist">Send local playlist to Spotify</a>
-	<br>
-	<a ui-sref="home.getPlaylist">Get your playlists</a>
-	<br>
-</aside>
-
+<div class="container">
+	<h2 class="lead">Spotify App</h2>
+	<button class="btn btn-primary" ng-click="login()" ng-hide="loggedIn">Login</button>
+	<div class="row">
+		<div class="col-lg-4"><a ui-sref="home.localPlaylist">Search for tracks and manage a local playlist</a></div>
+		<div class="col-lg-4"><a ui-sref="home.sendPlaylist" ng-show="loggedIn">Send local playlist to Spotify</a></div>
+		<div class="col-lg-4"><a ui-sref="home.getPlaylist" ng-show="loggedIn">Get your playlists</a></div>
+	</div>
+</div>
 <div ui-view></div>

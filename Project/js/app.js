@@ -60,18 +60,17 @@ projectApp.service("mainService", ["localStorageService", function (localStorage
 }]);
 
 projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "mainService", function ($scope, $http, localStorageService, mainService) {
-
 	$scope.localPlaylist = localStorageService.get("localPlaylist") || [];
+	
 
 /***********************Login to Spotify***********************/
 	$scope.login = function () {
 		OAuth.popup('spotify').done(function(result) {
 			$scope.token = result.access_token;
-			console.log($scope.token);
-			console.log(result);
 			result.me().done(function(data){
 				$scope.user = data.id;
-				console.log($scope.user);
+				$scope.loggedIn = true;
+				$scope.$apply();
 			})
 		})
 	};
@@ -84,7 +83,6 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 		$http.get("https://api.spotify.com/v1/search?q=" + $scope.trackSearch + "&type=track&limit=30")
 		.then(function(response){
 			$scope.searchResponse = response.data.tracks.items;
-			console.log($scope.searchResponse);
 		})
 
 	/*$.ajax({
@@ -100,8 +98,10 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 
 /******************Local playlist******************/
 	$scope.addToLocalPlaylist = function (track) {
-		$scope.localPlaylist.push(track);
-		mainService.saveLocalPlaylist($scope.localPlaylist);
+		if (track) {
+			$scope.localPlaylist.push(track);
+			mainService.saveLocalPlaylist($scope.localPlaylist);
+		}
 	};
 
 	$scope.removeFromLocalPlaylist = function (index) {
@@ -132,7 +132,6 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 			dataType:"json",
 			type: "post",
 			success: function (data) {
-				console.log("It worked!");
 				playlistID = data.id;
 				$.ajax({
 					url: "https://api.spotify.com/v1/users/" + $scope.user + "/playlists/" + playlistID + "/tracks",
@@ -146,18 +145,15 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 					dataType:"json",
 					type: "post",
 					success: function () {
-						console.log("It worked x2!");
 						mainService.clearLocalPlaylist();
 					},
 					error: function () {
-						console.log(":((((( x2");
-						console.log($scope.token);
+						console.log("Tracks failed");
 					}			
 				});
 			},
 			error: function () {
-				console.log(":(((((");
-				console.log($scope.token);
+				console.log("Playlist failed");
 			}
 		})	
 	};
