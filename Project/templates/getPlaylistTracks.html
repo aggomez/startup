@@ -1,9 +1,20 @@
-<div dir-paginate = "tracks in selectedPlaylist| itemsPerPage: 5" pagination-id="playlistTracks">
-	{{track.href}}
-	<br>
-	{{track.album.name}}
-	<br>
-	{{track.duration_ms}}
+<div class="col-md-8">
+	<table class="table table-hover table-condensed">
+		<caption class="text-center">{{selectedPlaylistName}}</caption>
+		<thead>
+			<tr>
+				<th>Track</th>
+				<th>Album</th>
+				<th>Artist</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr dir-paginate = "tracklist in selectedPlaylistTracks| itemsPerPage: 5" pagination-id="playlistTracks">
+				<td>{{tracklist.track.name}}</td>
+				<td>{{tracklist.track.album.name}}</td>
+				<td>{{tracklist.track.artists[0].name}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<dir-pagination-controls pagination-id="playlistTracks"></dir-pagination-controls>
 </div>
-
-<dir-pagination-controls pagination-id="playlistTracks"></dir-pagination-controls>

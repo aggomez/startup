@@ -1,10 +1,27 @@
 <div class="container">
-	<h2 class="lead">Spotify App</h2>
+	<h1 class="text-center">Spotify App</h1>
+	<p>This is a project for Globant's HTML5 Boot Camp that connects to Spotify using the "Spotify web API". To access the full content of this page, please create an account <a href="https://www.spotify.com/signup/" target="_blank">here</a> or log in using the provided button. Enjoy!</p>
 	<button class="btn btn-primary" ng-click="login()" ng-hide="loggedIn">Login</button>
+</div>
+<div class="container">
 	<div class="row">
-		<div class="col-lg-4"><a ui-sref="home.localPlaylist">Search for tracks and manage a local playlist</a></div>
-		<div class="col-lg-4"><a ui-sref="home.sendPlaylist" ng-show="loggedIn">Send local playlist to Spotify</a></div>
-		<div class="col-lg-4"><a ui-sref="home.getPlaylist" ng-show="loggedIn">Get your playlists</a></div>
+		<div class="col-md-4">
+			<h2>Search</h2>
+			<p>Search for tracks in Spotify and manage a local playlist.</p>
+			<p><a ui-sref="home.localPlaylist" class="btn btn-default" role="button">Go!</a></p>
+		</div>
+		<div class="col-md-4">
+			<h2>Create</h2>
+			<p>Name your local playlist and send it to Spotify.</p>
+			<p><a ng-hide="loggedIn" class="btn btn-default disabled" role="button">Must be logged in</a></p>
+			<p><a ui-sref="home.sendPlaylist" ng-show="loggedIn" class="btn btn-default" role="button">Go!</a></p>
+		</div>
+		<div class="col-md-4">
+			<h2>Get</h2>
+			<p>Get all your playlist and view their details.</p>
+			<p><a ng-hide="loggedIn" class="btn btn-default disabled" role="button">Must be logged in</a></p>
+			<p><a ui-sref="home.getPlaylist" ng-show="loggedIn" class="btn btn-default" role="button">Go!</a></p>
+		</div>
 	</div>
 </div>
 <div ui-view></div>

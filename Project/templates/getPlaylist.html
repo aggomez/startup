@@ -1,7 +1,17 @@
-<button ng-click="getPlaylists()">Get them!</button>
-<div dir-paginate = "playlist in userPlaylists| itemsPerPage: 5" pagination-id="playlist">
-	<a ui-sref="home.getPlaylist.tracks" ng-click="getPlaylistTracks($index)">{{playlist.name}}</a>
-	<br>
+<div class="container view">
+	<div class="row">
+		<div class="col-md-4">
+			<h4>Click on a playlist to get its details</h4>
+			<button ng-click="getPlaylists()">My playlists</button>
+			<div ng-show="playlistData">
+				<ul class="playlists">
+					<li dir-paginate = "playlist in userPlaylists| itemsPerPage: 5" pagination-id="playlist">
+						<a ui-sref="home.getPlaylist.tracks" ng-click="getPlaylistTracks(playlist)">{{playlist.name}}</a>
+					</li>
+				</ul>
+				<dir-pagination-controls pagination-id="playlist"></dir-pagination-controls>
+			</div>
+		</div>
+		<div ui-view></div>
+	</div>
 </div>
-<dir-pagination-controls pagination-id="playlist"></dir-pagination-controls>
-<div ui-view></div>

@@ -18,30 +18,29 @@ projectApp.config(["$urlRouterProvider", "$stateProvider", function ($urlRouterP
 		controller:"mainCtrl"
 	})
 
-	.state("home.sendPlaylist",{
-		url: "/sendPlaylist",
-		templateUrl:"templates/sendPlaylist.html",
-		controller:"mainCtrl"
-	})
-
 	.state("home.localPlaylist",{
 		url: "/localPlaylist",
 		templateUrl:"templates/localPlaylist.html",
 		controller:"mainCtrl"
 	})
 
+	.state("home.sendPlaylist",{
+		url: "/sendPlaylist",
+		templateUrl:"templates/sendPlaylist.html",
+		controller:"sendPlaylistCtrl"
+	})
+
 	.state("home.getPlaylist",{
 		url: "/getPlaylist",
 		templateUrl:"templates/getPlaylist.html",
-		controller:"mainCtrl"
+		controller:"getPlaylistCtrl"
 	})
 
 	.state("home.getPlaylist.tracks",{
 		url: "/getPlaylistTracks",
 		templateUrl:"templates/getPlaylistTracks.html",
-		controller:"mainCtrl"
+		controller:"getPlaylistCtrl"
 	})
-
 
 	$urlRouterProvider.otherwise("/");
 	
@@ -61,7 +60,9 @@ projectApp.service("mainService", ["localStorageService", function (localStorage
 
 projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "mainService", function ($scope, $http, localStorageService, mainService) {
 	$scope.localPlaylist = localStorageService.get("localPlaylist") || [];
-	
+	if ($scope.localPlaylist[0]) {
+		$scope.localData = true;
+	}
 
 /***********************Login to Spotify***********************/
 	$scope.login = function () {
@@ -76,25 +77,13 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 	};
 
 /******************Search tracks based on user query******************/
-// When I try to do this with an ajax call I can't show the results in the view. 
-// Am I missing something?
-
 	$scope.searchTracks = function () {
 		$http.get("https://api.spotify.com/v1/search?q=" + $scope.trackSearch + "&type=track&limit=30")
 		.then(function(response){
 			$scope.searchResponse = response.data.tracks.items;
+			$scope.searchDone= true;
 		})
-
-	/*$.ajax({
-			url: "https://api.spotify.com/v1/search?q=" + $scope.trackSearch + "&type=track&limit=30",
-			success: function(data){
-				$scope.searchResponse = data.tracks.items;
-				console.log($scope.searchResponse)
-			}
-		});*/
 	};
-
-
 
 /******************Local playlist******************/
 	$scope.addToLocalPlaylist = function (track) {
@@ -102,14 +91,30 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 			$scope.localPlaylist.push(track);
 			mainService.saveLocalPlaylist($scope.localPlaylist);
 		}
+		if ($scope.localPlaylist[0]) {
+			$scope.localData = true;
+		}
 	};
 
-	$scope.removeFromLocalPlaylist = function (index) {
-		$scope.localPlaylist.splice(index, 1);
-		console.log($scope.localPlaylist);
-		mainService.saveLocalPlaylist($scope.localPlaylist);
+	$scope.removeFromLocalPlaylist = function (track) {
+		for (var index = 0; index < $scope.localPlaylist.length; index++) {
+			if (track === $scope.localPlaylist[index]) {
+				$scope.localPlaylist.splice(index, 1);
+				mainService.saveLocalPlaylist($scope.localPlaylist);
+				if (!$scope.localPlaylist[0]) {
+					$scope.localData = false;
+				}
+			}
+		}
 	};
 
+}]);
+
+projectApp.controller("sendPlaylistCtrl", ["$scope", "localStorageService", "mainService", function ($scope, localStorageService, mainService) {
+	$scope.localPlaylist = localStorageService.get("localPlaylist") || [];
+	if ($scope.localPlaylist[0]) {
+		$scope.localData = true;
+	}
 
 /******************Send playlist to Spotify******************/
 	$scope.sendPlaylist = function () {
@@ -146,6 +151,8 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 					type: "post",
 					success: function () {
 						mainService.clearLocalPlaylist();
+						$scope.localData = false;
+						$scope.$apply();
 					},
 					error: function () {
 						console.log("Tracks failed");
@@ -157,9 +164,11 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 			}
 		})	
 	};
+}]);
+
+projectApp.controller("getPlaylistCtrl", ["$scope", "$http", function ($scope, $http) {
 
 /******************Get playlists from Spotify*****************/	
-// Same as in searchTracks
 	$scope.getPlaylists = function () {
 		$http({
 			method: "GET",
@@ -171,30 +180,29 @@ projectApp.controller("mainCtrl", ["$scope", "$http", "localStorageService", "ma
 			dataType:"json",
 		}).then(function(response){
 			$scope.userPlaylists = response.data.items;
-			console.log($scope.userPlaylists);
+			$scope.playlistData = true;
 		});
+	};
 
-		/*$.ajax({
-			url: "https://api.spotify.com/v1/users/" + $scope.user + "/playlists",
+/******************Get playlists from Spotify*****************/	
+	$scope.getPlaylistTracks = function (playlist) {
+		for (var index = 0; index < $scope.userPlaylists.length; index++) {
+			if (playlist === $scope.userPlaylists[index]){
+				$scope.selectedPlaylistName = $scope.userPlaylists[index].name;
+				$scope.selectedPlaylist = $scope.userPlaylists[index].tracks;
+			}
+		}
+		$http({
+			method: "GET",
+			url: $scope.selectedPlaylist.href,
 			headers: {
 				"Authorization": "Bearer " + $scope.token,
 				"Content-Type": "application/json" 
 			},
 			dataType:"json",
-			type: "get",
-			success: function (data){
-				console.log(data);
-				$scope.userPlaylists = data.items;
-				console.log($scope.userPlaylists[1].name);
-			}
-		});*/
-	};
-
-/******************Get playlists from Spotify*****************/	
-//Not getting the tracks from Spotify, only an href and the total
-	$scope.getPlaylistTracks = function (index) {
-		$scope.selectedPlaylist = $scope.userPlaylists[index].tracks;
-		console.log($scope.selectedPlaylist);
+		}).then(function(response){
+			$scope.selectedPlaylistTracks = response.data.items;
+		});
 	};
 
 }]);

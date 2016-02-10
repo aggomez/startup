@@ -1,4 +1,6 @@
-<p>Name your playlist and upload it to Spotify. Remember that your local playlist will be cleared</p>
-<input ng-model="newPlaylist" placeholder="Your playlist name"/>
-<button class="btn btn-warning" ng-click="sendPlaylist()">Create</button>
-
+<div class="container view">
+	<p>Remember that your local playlist will be cleared</p>
+	<input ng-model="newPlaylist" placeholder="Your playlist name"/>
+	<button class="btn btn-warning disabled" ng-hide="localData">No local playlist</button>
+	<button class="btn btn-warning" ng-click="sendPlaylist()" ng-show="localData">Create</button>
+</div>

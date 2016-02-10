@@ -1,47 +1,53 @@
-<div class="col-lg-6">
-	<caption class = "text-center">
+<div class="container view">
+	<div class="text-center">
+		<h4>Use the search bar to get a list of tracks and the add/remove buttons to manage your playlist.</h4>
 		<input ng-model="trackSearch"/>
-		<button ng-click="searchTracks()">Search!</button>
-	</caption>
-	<table class="table table-condensed">
-		<thead>
-			<tr>
-				<th>Track</th>
-				<th>Album</th>
-				<th>Duration</th>
-				<th>Add to local</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr dir-paginate = "track in searchResponse| itemsPerPage: 5" pagination-id="search">
-				<td>{{track.name}}</td>
-				<td>{{track.album.name}}</td>
-				<td>{{track.duration_ms}}</td>
-				<td><button class="btn btn-primary btn-xs" ng-model= "track" ng-click="addToLocalPlaylist(track)"><span class="glyphicon glyphicon-plus"></span></button></td>
-			</tr>
-		</tbody>
-	</table>
-	<dir-pagination-controls pagination-id="search"></dir-pagination-controls>
-</div>
-<div class="col-lg-6">
-	<table class="table table-condensed">
-		<caption class="text-center">Local stored playlist</caption>
-		<thead>
-			<tr>
-				<th>Track</th>
-				<th>Album</th>
-				<th>Duration</th>
-				<th>Remove</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr dir-paginate = "track in localPlaylist| itemsPerPage: 5 track by $index" pagination-id="local">
-				<td>{{track.name}}</td>
-				<td>{{track.album.name}}</td>
-				<td>{{track.duration_ms}}</td>
-				<td><button class="btn btn-danger btn-xs" ng-click="removeFromLocalPlaylist($index)"><span class="glyphicon glyphicon-remove"></span></button></td>
-			</tr>
-		</tbody>
-	</table>
-	<dir-pagination-controls pagination-id="local"></dir-pagination-controls>
+		<button ng-click="searchTracks()">Search</button>
+	</div>
+	<div class="row">
+		<div class="col-md-6" ng-show="searchDone">
+			<table class="table table-hover">
+				<caption class = "text-center">Results</caption>
+				<thead>
+					<tr>
+						<th>Track</th>
+						<th>Album</th>
+						<th>Artist</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate = "track in searchResponse| itemsPerPage: 5" pagination-id="search">
+						<td>{{track.name}}</td>
+						<td>{{track.album.name}}</td>
+						<td>{{track.artists[0].name}}</td>
+						<td><button class="btn btn-primary btn-xs" ng-model= "track" ng-click="addToLocalPlaylist(track)"><span class="glyphicon glyphicon-plus"></span></button></td>
+					</tr>
+				</tbody>
+			</table>
+			<dir-pagination-controls pagination-id="search"></dir-pagination-controls>
+		</div>
+		<div class="col-md-6" ng-show="localData">
+			<table class="table table-hover">
+				<caption class="text-center">Local Playlist</caption>
+				<thead>
+					<tr>
+						<th>Track</th>
+						<th>Album</th>
+						<th>Artist</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate = "track in localPlaylist| itemsPerPage: 5 track by $index" pagination-id="local">
+						<td>{{track.name}}</td>
+						<td>{{track.album.name}}</td>
+						<td>{{track.artists[0].name}}</td>
+						<td><button class="btn btn-danger btn-xs" ng-click="removeFromLocalPlaylist(track)"><span class="glyphicon glyphicon-remove"></span></button></td>
+					</tr>
+				</tbody>
+			</table>
+			<dir-pagination-controls pagination-id="local"></dir-pagination-controls>
+		</div>
+	</div>
 </div>
